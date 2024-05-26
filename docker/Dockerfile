@@ -12,16 +12,13 @@ RUN apt update && \
 # Install git for cloning
 RUN apt install -y git
 
-COPY ./entrypoint.sh /entrypoint.sh
-COPY ./repo-sync.sh /repo-sync.sh
-
-RUN chmod +x /entrypoint.sh
-RUN chmod +x /repo-sync.sh
-
 USER container
 ENV  USER container
 ENV  HOME /home/container
 
 WORKDIR /home/container
+
+COPY ./entrypoint.sh /entrypoint.sh
+COPY ./repo-sync.sh /repo-sync.sh
 
 CMD ["/bin/bash", "/entrypoint.sh"]

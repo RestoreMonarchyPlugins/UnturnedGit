@@ -49,8 +49,6 @@ cp -f steam/linux64/steamclient.so Unturned_Headless_Data/Plugins/x86_64/steamcl
 
 # check if REPOSITORY_ENABLED is enabled
 if [ "${REPOSITORY_ENABLED}" == "1" ]; then
-    # list contents of current directory to debug
-    ls -la
     # run repo-sync.sh that is in the same place as entrypoint.sh which is root
     /repo-sync.sh
 fi
