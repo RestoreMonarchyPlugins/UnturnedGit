@@ -59,6 +59,12 @@ cp -f steam/linux64/steamclient.so Unturned_Headless_Data/Plugins/x86_64/steamcl
 if [ -n "${REPOSITORY_URL}" ] && [ -n "${INSTALL_DIR}" ]; then
     TEMP_DIR="tmp/repo"
 
+    # remove temp dir if exists
+    if [ -d "${TEMP_DIR}" ]; then
+        rm -rf ${TEMP_DIR}
+        echo "Temporary directory ${TEMP_DIR} has been removed."
+    fi
+
     # Log start of script
     echo "Starting repository clone script"
 
@@ -92,14 +98,14 @@ if [ -n "${REPOSITORY_URL}" ] && [ -n "${INSTALL_DIR}" ]; then
     if [ -n "${REPOSITORY_DIR}" ]; then
         echo "Moving contents of ${TEMP_DIR}/${REPOSITORY_DIR} to ${INSTALL_DIR}"
         shopt -s dotglob
-        mv ${TEMP_DIR}/${REPOSITORY_DIR}/* ${INSTALL_DIR}/
-        mv ${TEMP_DIR}/${REPOSITORY_DIR}/.[!.]* ${INSTALL_DIR}/
+        cp -rf ${TEMP_DIR}/${REPOSITORY_DIR}/* ${INSTALL_DIR}/
+        cp -rf ${TEMP_DIR}/${REPOSITORY_DIR}/.[!.]* ${INSTALL_DIR}/
         shopt -u dotglob
     else
         echo "REPOSITORY_DIR is not specified, moving all contents of ${TEMP_DIR} to ${INSTALL_DIR}"
         shopt -s dotglob
-        mv ${TEMP_DIR}/* ${INSTALL_DIR}/
-        mv ${TEMP_DIR}/.[!.]* ${INSTALL_DIR}/
+        cp -rf ${TEMP_DIR}/* ${INSTALL_DIR}/
+        cp -rf ${TEMP_DIR}/.[!.]* ${INSTALL_DIR}/
         shopt -u dotglob
     fi
 
