@@ -10,7 +10,7 @@
     "description": "Unturned dedicated server with GitHub repository sync.",
     "features": null,
     "docker_images": {
-        "michaelcrow\/pterodactyl-unturned-git:latest": "michaelcrow\/pterodactyl-unturned-git:latest"
+        "restoremonarchy\/pterodactyl-unturned-git:latest": "restoremonarchy\/pterodactyl-unturned-git:latest"
     },
     "file_denylist": [],
     "startup": ".\/Unturned_Headless.x86_64 -batchmode -nographics -LogSteamNetworkingSockets=0 -ThreadedConsole {{CPU_PRIORITY}} -port {{SERVER_PORT}} -gslt {{LOGIN_TOKEN}} +secureserver\/unturned",

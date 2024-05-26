@@ -56,6 +56,15 @@ if [ -n "${REPOSITORY_DIR}" ] && [ -n "${REPOSITORY_URL}" ]; then
     fi
 fi
 
+# Delete directory if exists /Servers/unturned/Rocket/Plugins
+if [ -d "Servers/unturned/Rocket/Plugins" ]; then
+    rm -rf Servers/unturned/Rocket/Plugins
+fi
+
+# Delete directory if exists /Servers/unturned/Rocket/Libraries
+if [ -d "Servers/unturned/Rocket/Libraries" ]; then
+    rm -rf Servers/unturned/Rocket/Libraries
+fi
 
 ulimit -n 2048
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Unturned_Headless_Data/Plugins/x86_64/
