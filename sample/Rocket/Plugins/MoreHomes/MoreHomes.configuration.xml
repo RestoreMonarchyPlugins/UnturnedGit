@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MoreHomesConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <MessageColor>yellow</MessageColor>
+  <DefaultHomeCooldown>20</DefaultHomeCooldown>
+  <DefaultHomeDelay>10</DefaultHomeDelay>
+  <DefaultMaxHomes>2</DefaultMaxHomes>
+  <TeleportHeight>0.5</TeleportHeight>
+  <CancelOnMove>true</CancelOnMove>
+  <MoveMaxDistance>0.5</MoveMaxDistance>
+  <VIPCooldowns>
+    <VIPPermission PermissionTag="morehomes.vip" Value="10" />
+    <VIPPermission PermissionTag="morehomes.star" Value="5" />
+  </VIPCooldowns>
+  <VIPDelays>
+    <VIPPermission PermissionTag="morehomes.vip" Value="5" />
+    <VIPPermission PermissionTag="morehomes.star" Value="3" />
+  </VIPDelays>
+  <VIPMaxHomes>
+    <VIPPermission PermissionTag="morehomes.vip" Value="3" />
+    <VIPPermission PermissionTag="morehomes.star" Value="4" />
+  </VIPMaxHomes>
+</MoreHomesConfiguration>
