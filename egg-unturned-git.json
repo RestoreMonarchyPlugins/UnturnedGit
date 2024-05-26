@@ -1,0 +1,132 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2024-05-26T09:44:28+00:00",
+    "name": "Unturned Git",
+    "author": "contact@restoremonarchy.com",
+    "description": "Unturned dedicated server with GitHub repository sync.",
+    "features": null,
+    "docker_images": {
+        "michaelcrow\/pterodactyl-unturned-git:latest": "michaelcrow\/pterodactyl-unturned-git:latest"
+    },
+    "file_denylist": [],
+    "startup": ".\/Unturned_Headless.x86_64 -batchmode -nographics -LogSteamNetworkingSockets=0 -ThreadedConsole {{CPU_PRIORITY}} -port {{SERVER_PORT}} -gslt {{LOGIN_TOKEN}} +secureserver\/unturned",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Loading level: 100%\"\r\n}",
+        "logs": "{\r\n    \"custom\": true,\r\n    \"location\": \"latest.log\"\r\n}",
+        "stop": "shutdown"
+    },
+    "scripts": {
+        "installation": {
+            "script": "apt update\r\napt -y --no-install-recommends install curl lib32gcc1 ca-certificates\r\ncd \/tmp\r\ncurl -sSL -o steamcmd.tar.gz https:\/\/steamcdn-a.akamaihd.net\/client\/installer\/steamcmd_linux.tar.gz\r\nmkdir -p \/mnt\/server\/steam\r\ntar -xzvf steamcmd.tar.gz -C \/mnt\/server\/steam\r\ncd \/mnt\/server\/steam\r\nchown -R root:root \/mnt\r\nexport HOME=\/mnt\/server\r\n.\/steamcmd.sh +@sSteamCmdForcePlatformBitness 64 +login anonymous +force_install_dir \/mnt\/server +app_update 1110390 validate +quit\r\nmkdir -p \/mnt\/server\/Servers\/unturned\/Server\r\nmkdir \/mnt\/server\/linux64\r\ncp \/mnt\/server\/steam\/linux64\/* \/mnt\/server\/linux64\r\nmkdir \/mnt\/server\/Unturned_Headless_Data\/Plugins\/x86_64\/",
+            "container": "ubuntu:18.04",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Framework",
+            "description": "Select a framework that should be used",
+            "env_variable": "FRAMEWORK",
+            "default_value": "rocket",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:vanilla,rocket,openmod,openmod & rocket",
+            "field_type": "text"
+        },
+        {
+            "name": "Framework Auto-Update",
+            "description": "Set whether you want the server to use auto update of the selected framework",
+            "env_variable": "FRAMEWORK_AUTOUPDATE",
+            "default_value": "1",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
+        {
+            "name": "Unturned Auto Update",
+            "description": "Set on to enable automatic updates to Unturned",
+            "env_variable": "GAME_AUTOUPDATE",
+            "default_value": "1",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
+        {
+            "name": "CPU Priority",
+            "description": "CPU priority set for a specific server",
+            "env_variable": "CPU_PRIORITY",
+            "default_value": "-normal",
+            "user_viewable": true,
+            "user_editable": false,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Login Token",
+            "description": "This login token allows you to publicly show your server on the server list.",
+            "env_variable": "LOGIN_TOKEN",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:50",
+            "field_type": "text"
+        },
+        {
+            "name": "Repository URL",
+            "description": "The URL to the Git repository that should be cloned for this server.",
+            "env_variable": "REPOSITORY_URL",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:255",
+            "field_type": "text"
+        },
+        {
+            "name": "Repository Access Token",
+            "description": "The access token to use when cloning the repository. This is required for private repositories.",
+            "env_variable": "REPOSITORY_ACCESS_TOKEN",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:255",
+            "field_type": "text"
+        },
+        {
+            "name": "Branch",
+            "description": "The branch of the Git repository that should be used for this server.",
+            "env_variable": "REPOSITORY_BRANCH",
+            "default_value": "master",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:255",
+            "field_type": "text"
+        },
+        { 
+            "name": "Repository Directory",
+            "description": "The folder inside the repository that should be used for this server. Leave empty to use the root of the repository.",
+            "env_variable": "REPOSITORY_DIR",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:255",
+            "field_type": "text"
+        },
+        {
+            "name": "Install Directory",
+            "description": "The directory where the server files should be installed.",
+            "env_variable": "INSTALL_DIR",
+            "default_value": "/Servers/unturned",
+            "user_viewable": true,
+            "user_editable": false,
+            "rules": "required|string|max:255",
+            "field_type": "text"
+        }
+    ]
+}
