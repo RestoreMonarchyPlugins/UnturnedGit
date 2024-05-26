@@ -47,75 +47,12 @@ cp -f steam/linux64/steamclient.so .steam/sdk64/steamclient.so
 mkdir -p Unturned_Headless_Data/Plugins/x86_64
 cp -f steam/linux64/steamclient.so Unturned_Headless_Data/Plugins/x86_64/steamclient.so
 
-# git clone REPOSITORY_DIR to INSTALL_DIR from REPOSITORY_URL from REPOSITORY_BRANCH using REPOSITORY_ACCESS_TOKEN if set
-# if [ -n "${REPOSITORY_URL}" ]; then
-#     if [ -n "${REPOSITORY_ACCESS_TOKEN}" ]; then
-#         git clone -b ${REPOSITORY_BRANCH} https://${REPOSITORY_ACCESS_TOKEN}@${REPOSITORY_URL} ${REPOSITORY_DIR}
-#     else
-#         git clone -b ${REPOSITORY_BRANCH} https://${REPOSITORY_URL} ${REPOSITORY_DIR}
-#     fi
-# fi
-
-if [ -n "${REPOSITORY_URL}" ] && [ -n "${INSTALL_DIR}" ]; then
-    TEMP_DIR="tmp/repo"
-
-    # remove temp dir if exists
-    if [ -d "${TEMP_DIR}" ]; then
-        rm -rf ${TEMP_DIR}
-        echo "Temporary directory ${TEMP_DIR} has been removed."
-    fi
-
-    # Log start of script
-    echo "Starting repository clone script"
-
-    # Clone the repository into a temporary directory
-    echo "Cloning repository from ${REPOSITORY_URL} (branch: ${REPOSITORY_BRANCH}) into temporary directory ${TEMP_DIR}"
-    if [ -n "${REPOSITORY_ACCESS_TOKEN}" ]; then
-        git clone -b ${REPOSITORY_BRANCH} https://${REPOSITORY_ACCESS_TOKEN}@${REPOSITORY_URL} ${TEMP_DIR}
-    else
-        git clone -b ${REPOSITORY_BRANCH} https://${REPOSITORY_URL} ${TEMP_DIR}
-    fi
-
-    echo "Repository successfully cloned to ${TEMP_DIR}"
-
-    # Delete directory if exists /Servers/unturned/Rocket/Plugins
-    if [ -d "Servers/unturned/Rocket/Plugins" ]; then
-        rm -rf Servers/unturned/Rocket/Plugins
-        echo "Rocket plugins directory has been removed."
-    fi
-
-    # Delete directory if exists /Servers/unturned/Rocket/Libraries
-    if [ -d "Servers/unturned/Rocket/Libraries" ]; then
-        rm -rf Servers/unturned/Rocket/Libraries
-        echo "Rocket libraries directory has been removed."
-    fi
-
-    # Create the INSTALL_DIR if it doesn't exist
-    echo "Ensuring install directory ${INSTALL_DIR} exists"
-    mkdir -p ${INSTALL_DIR}
-
-    # Move the contents of the specified REPOSITORY_DIR to the INSTALL_DIR
-    if [ -n "${REPOSITORY_DIR}" ]; then
-        echo "Moving contents of ${TEMP_DIR}/${REPOSITORY_DIR} to ${INSTALL_DIR}"
-        shopt -s dotglob
-        cp -rf ${TEMP_DIR}/${REPOSITORY_DIR}/* ${INSTALL_DIR}/
-        cp -rf ${TEMP_DIR}/${REPOSITORY_DIR}/.[!.]* ${INSTALL_DIR}/
-        shopt -u dotglob
-    else
-        echo "REPOSITORY_DIR is not specified, moving all contents of ${TEMP_DIR} to ${INSTALL_DIR}"
-        shopt -s dotglob
-        cp -rf ${TEMP_DIR}/* ${INSTALL_DIR}/
-        cp -rf ${TEMP_DIR}/.[!.]* ${INSTALL_DIR}/
-        shopt -u dotglob
-    fi
-
-    # Clean up: remove the temporary directory
-    echo "Cleaning up: removing temporary directory ${TEMP_DIR}"
-    rm -rf ${TEMP_DIR}
-
-    # Log success message
-    echo "Repository contents successfully moved to ${INSTALL_DIR}"
-    echo "Repository clone script completed successfully"
+# check if REPOSITORY_ENABLED is enabled
+if [ "${REPOSITORY_ENABLED}" == "1" ]; then
+    # list contents of current directory to debug
+    ls -la
+    # run repo-sync.sh that is in the same place as entrypoint.sh which is root
+    /repo-sync.sh
 fi
 
 ulimit -n 2048

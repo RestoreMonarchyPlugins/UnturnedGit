@@ -1,6 +1,6 @@
 {
-	"DeletePaths": [
-		"/Servers/unturned/Rocket/Plugins",
-		"/Servers/unturned/Rocket/Libraries"
+	"Delete": [
+		"Servers/unturned/Rocket/Plugins",
+		"Servers/unturned/Rocket/Libraries"
 	]
 }

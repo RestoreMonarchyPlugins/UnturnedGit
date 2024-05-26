@@ -79,6 +79,16 @@
             "field_type": "text"
         },
         {
+            "name": "Repository Enabled",
+            "description": "Set on to enable repository sync",
+            "env_variable": "REPOSITORY_ENABLED",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
+        {
             "name": "Repository URL",
             "description": "The URL to the Git repository that should be cloned for this server.",
             "env_variable": "REPOSITORY_URL",
