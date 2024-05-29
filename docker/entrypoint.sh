@@ -33,25 +33,25 @@ if [ "${FRAMEWORK}" == "rocketmodfix" ] && [ -d "Modules/OpenMod.Unturned" ]; th
     echo "OpenMod.Unturned has been removed from modules because Rocket is selected as the framework."
 fi
 
-
 if [ "${FRAMEWORK}" == "rocket" ] || [ "${FRAMEWORK}" == "openmod & rocket" ]; then
     if [ "${FRAMEWORK_AUTOUPDATE}" == "1" ] || [ ! -d "Modules/Rocket.Unturned" ]; then
         cp -r Extras/Rocket.Unturned Modules/
     fi
 fi
 
-if [[ "${FRAMEWORK}" == "rocketmodfix" ]] || [[ "${FRAMEWORK}" == "openmod & rocketmodfix" ]]; then
-    if [[ -d "Modules/Rocket.Unturned" ]]; then
+if [ "${FRAMEWORK}" == "rocketmodfix" ] || [ "${FRAMEWORK}" == "openmod & rocketmodfix" ]; then
+    if [ -d "Modules/Rocket.Unturned" ]; then
         rm -rf "Modules/Rocket.Unturned"
     fi
-    if [[ "${FRAMEWORK_AUTOUPDATE}" == "1" ]]; then
+    if [ "${FRAMEWORK_AUTOUPDATE}" == "1" ]; then
          curl -s https://api.github.com/repos/RocketModFix/RocketModFix/releases/latest | jq -r '.assets[] | select(.name | contains("Rocket.Unturned.Module")) | .browser_download_url' | wget -i -
          unzip -o -q Rocket.Unturned.Module*.zip -d Modules && rm Rocket.Unturned.Module*.zip
+         rm "Modules/Readme_EN.txt"
+         rm "Modules/Readme_RU.txt"
     fi    
 fi
 
-
-if ([ "${FRAMEWORK}" == "openmod" ] || [ "${FRAMEWORK}" == "openmod & rocket" ] || [ "${FRAMEWORK}" == "openmod & rocketmodfix" ]); then
+if [ "${FRAMEWORK}" == "openmod" ] || [ "${FRAMEWORK}" == "openmod & rocket" ] || [ "${FRAMEWORK}" == "openmod & rocketmodfix" ]; then
     if [ "${FRAMEWORK_AUTOUPDATE}" == "1" ] || [ ! -d "Modules/OpenMod.Unturned" ]; then
         curl -s https://api.github.com/repos/openmod/OpenMod/releases/latest | jq -r '.assets[] | select(.name | contains("OpenMod.Unturned.Module")) | .browser_download_url' | wget -i -
         unzip -o -q OpenMod.Unturned.Module*.zip -d Modules && rm OpenMod.Unturned.Module*.zip

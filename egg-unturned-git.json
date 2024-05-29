@@ -4,13 +4,13 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2024-05-26T09:44:28+00:00",
+    "exported_at": "2024-05-30T00:11:33+01:00",
     "name": "Unturned Git",
     "author": "contact@restoremonarchy.com",
     "description": "Unturned dedicated server with GitHub repository sync.",
     "features": null,
     "docker_images": {
-        "restoremonarchy\/pterodactyl-unturned-git:latest": "restoremonarchy\/pterodactyl-unturned-git:latest"
+        "restoremonarchy/pterodactyl-unturned-git:latest": "restoremonarchy/pterodactyl-unturned-git:latest"
     },
     "file_denylist": [],
     "startup": ".\/Unturned_Headless.x86_64 -batchmode -nographics -LogSteamNetworkingSockets=0 -ThreadedConsole {{CPU_PRIORITY}} -port {{SERVER_PORT}} -gslt {{LOGIN_TOKEN}} +secureserver\/unturned",
@@ -35,7 +35,7 @@
             "default_value": "rocket",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|string|in:vanilla,rocket,openmod,openmod & rocket",
+            "rules": "required|string|in:vanilla,rocket,openmod,openmod & rocket,rocketmodfix,openmod & rocketmodfix",
             "field_type": "text"
         },
         {
@@ -118,7 +118,7 @@
             "rules": "required|string|max:255",
             "field_type": "text"
         },
-        { 
+        {
             "name": "Repository Directory",
             "description": "The folder inside the repository that should be used for this server. Leave empty to use the root of the repository.",
             "env_variable": "REPOSITORY_DIR",
