@@ -73,11 +73,11 @@ fi
 
 # Delete paths specified in Delete array else log that it doesn't exist
 for DELETE_PATH in ${DELETE_PATHS}; do
-    if [ -d "${INSTALL_DIR}/${DELETE_PATH}" ]; then
-        echo -e "${GREEN}Deleting ${INSTALL_DIR}/${DELETE_PATH}"
-        rm -rf ${INSTALL_DIR}/${DELETE_PATH}
+    if [ -d "${DELETE_PATH}" ]; then
+        echo -e "${GREEN}Deleting ${DELETE_PATH}"
+        rm -rf ${DELETE_PATH}
     else
-        echo -e "${GREEN}${INSTALL_DIR}/${DELETE_PATH} does not exist, skipping deletion"
+        echo -e "${GREEN}${DELETE_PATH} does not exist, skipping deletion"
     fi
 done
 
